@@ -7,7 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  show = false;
+  color = "red";
+
   constructor() { }
+
+  changeStatus() {
+    this.show =!this.show;
+  }
+
+  changeColor(input) {
+    console.log(input.value);
+    this.color = input.value;
+    this.color = '';
+
+  }
 
   ngOnInit(): void {
   }

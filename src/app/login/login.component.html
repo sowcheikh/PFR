@@ -7,7 +7,7 @@
               <i class="fa fa-user-edit"></i>
             </div>
             <h3 class="title">User Login</h3>
-            <form  class="form-horizontal">
+            <form  class="form-horizontal" #f="ngForm" (ngSubmit)="loginUser()">
               <div class="form-group">
                 <span class="input-icon"><i class="fa fa-user"></i></span>
                 <input class="form-control" [(ngModel)]="loginUserData.email" type="email" placeholder="Email" ngModel name="email" required email>
@@ -24,4 +24,13 @@
       </div>
     </div>
   </div>
-  <router-outlet></router-outlet>
+  <div>
+    <table>
+      <th>
+        <tr *ngFor="let user of users"> 
+          <td>{{user.nom}} </td>
+          <td>{{user.prenom}} </td>
+        </tr>
+      </th>
+    </table>
+  </div>

@@ -1,8 +1,10 @@
+import { FormGroup } from '@angular/forms';
+import { User } from './../user/user';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { injectMocks } from 'data-mocks';
-import { HttpClient} from '@angular/common/http';
 import { Scenarios } from 'data-mocks/dist/types';
+import { Router } from '@angular/router';
 
 const scenarios: Scenarios = {
   default: [
@@ -39,23 +41,47 @@ injectMocks(scenarios, 'default', {allowXHRPassthrough: true, allowFetchPassthro
 export class LoginComponent implements OnInit {
 
   name: any;
+  formLogin: FormGroup;
+  user: User[];
   loginUserData = {
     email: '',
     password: '',
     profile: 'admin'
   };
+   users: User[];
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, 
+   private router: Router) {
       
   }
 
 loginUser(){
   this.auth.login(this.loginUserData).subscribe(
-    res=> console.log(res),
-    err=> console.log(err)
+    res=> {
+      if ( res =='ROLE_ADMIN') {
+        console.log('admin');
+        
+      } else{
+        console.log('non');
+      }
+     
+      
+    },
+    
+    err=> console.log(err),
+    ()=> {
+      
+     // this.router.navigate(['/admin']);
+    }
     
     
   )
+}
+getAllUsers() {
+this.auth.getUser().subscribe(
+  res=> console.log(res),
+  err=> console.log(err),
+)
 }
   ngOnInit(): void {
   }
